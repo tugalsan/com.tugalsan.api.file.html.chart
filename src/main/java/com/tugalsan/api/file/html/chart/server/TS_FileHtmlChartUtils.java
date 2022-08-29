@@ -11,7 +11,7 @@ import com.tugalsan.api.string.client.*;
 
 public class TS_FileHtmlChartUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_FileHtmlChartUtils.class.getSimpleName());
+    final private static TS_Log d = TS_Log.of(TS_FileHtmlChartUtils.class);
 
     private static void addLine(List<String> dest, String s) {
         dest.add(TGS_StringUtils.concat(s, "\n"));
