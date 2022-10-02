@@ -20,7 +20,7 @@ public class TS_FileHtmlChartUtils {
     public static void addHTML_datePicker(List<String> dest, TGS_Time dateFrom, TGS_Time dateTo, List<TGS_Pack2<String, String>> hidden) {
         addLine(dest, TGS_StringUtils.concat(
                 "<form method=\"get\" action=\"\">",
-                TGS_StringUtils.concat(TGS_StreamUtils.toList(
+                TGS_StringUtils.concat(TGS_StreamUtils.toLst(
                         hidden.stream().map(h -> TGS_StringUtils.concat(
                         "<input id=\"", h.value0, "\" name=\"", h.value0, "\" type=\"hidden\" value=\"", h.value1, "\">"
                 )))),
