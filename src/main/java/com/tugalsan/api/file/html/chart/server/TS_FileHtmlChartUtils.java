@@ -13,8 +13,8 @@ public class TS_FileHtmlChartUtils {
 
     final private static TS_Log d = TS_Log.of(TS_FileHtmlChartUtils.class);
 
-    private static void addLine(List<String> dest, String s) {
-        dest.add(TGS_StringUtils.concat(s, "\n"));
+    private static void addLine(List<String> strBuffer, String s) {
+        strBuffer.add(TGS_StringUtils.concat(s, "\n"));
     }
 
     public static void addHTML_datePicker(List<String> dest, TGS_Time dateFrom, TGS_Time dateTo, List<TGS_Pack2<String, String>> hidden) {
@@ -55,19 +55,19 @@ public class TS_FileHtmlChartUtils {
         }
     }
 
-    public static void addHTML_chart(List<String> dest, List<HTMLChart> charts, CharSequence googleChartsJs) {
-        addLine(dest, "    <script src=\"" + googleChartsJs + "\"></script>");
-        addLine(dest, "    <script>");
-        addLine(dest, "        google.load('visualization', '1.0', {'packages': ['corechart', 'line']});");
-        addLine(dest, "        google.setOnLoadCallback(drawChart);");
-        addLine(dest, "        function drawLineChart(divName, data, options) {");
-        addLine(dest, "            var chart = new google.visualization.LineChart(document.getElementById(divName));");
-        addLine(dest, "            chart.draw(data, options);");
-        addLine(dest, "        }");
-        addLine(dest, "        function drawHistogram(divName, data, options) {");
-        addLine(dest, "            var chart = new google.visualization.Histogram(document.getElementById(divName));");
-        addLine(dest, "            chart.draw(data, options);");
-        addLine(dest, "        }");
+    public static void addHTML_chart(List<String> strBuffer, List<HTMLChart> charts, CharSequence googleChartsJs) {
+        addLine(strBuffer, "    <script src=\"" + googleChartsJs + "\"></script>");
+        addLine(strBuffer, "    <script>");
+        addLine(strBuffer, "        google.load('visualization', '1.0', {'packages': ['corechart', 'line']});");
+        addLine(strBuffer, "        google.setOnLoadCallback(drawChart);");
+        addLine(strBuffer, "        function drawLineChart(divName, data, options) {");
+        addLine(strBuffer, "            var chart = new google.visualization.LineChart(document.getElementById(divName));");
+        addLine(strBuffer, "            chart.draw(data, options);");
+        addLine(strBuffer, "        }");
+        addLine(strBuffer, "        function drawHistogram(divName, data, options) {");
+        addLine(strBuffer, "            var chart = new google.visualization.Histogram(document.getElementById(divName));");
+        addLine(strBuffer, "            chart.draw(data, options);");
+        addLine(strBuffer, "        }");
         IntStream.range(0, charts.size()).forEachOrdered(i -> {
             List<String> destI = TGS_ListUtils.of();
             var c = charts.get(i);
@@ -79,8 +79,8 @@ public class TS_FileHtmlChartUtils {
             addLine(destI, "            data.addRows([");
             IntStream.range(0, c.data.size()).forEachOrdered(di -> {
                 var dataI = c.data.get(di);
-                Double nem = dataI.yValues[0];//DO NOT CHANGE IT TO VAR!!!
-                Double sic = dataI.yValues[1];//DO NOT CHANGE IT TO VAR!!!
+                Double nem = dataI.yValues[0];//DO NOT CHANGE IT TO VAR, java bug!!! 
+                Double sic = dataI.yValues[1];//DO NOT CHANGE IT TO VAR, java bug!!!
                 d.ci("addHTML_chart", i, di, nem, sic);
                 nem = nem == 0f ? null : nem;
                 sic = sic == 0f ? null : sic;
@@ -138,18 +138,18 @@ public class TS_FileHtmlChartUtils {
             addLine(destI, "        };");
             addLine(destI, "        return options;");
             addLine(destI, "      }");
-            dest.addAll(destI);
+            strBuffer.addAll(destI);
         });
-        addLine(dest, "        function drawChart() {");
+        addLine(strBuffer, "        function drawChart() {");
         IntStream.range(0, charts.size()).forEachOrdered(i -> {
             List<String> destI = TGS_ListUtils.of();
             addLine(destI, TGS_StringUtils.concat("            drawLineChart('divLineChart", String.valueOf(i), "', getDataLineChart", String.valueOf(i), "(), getOptionsLineChart", String.valueOf(i), "());"));
             addLine(destI, TGS_StringUtils.concat("            drawHistogram('divHistogram", String.valueOf(i), "', getDataLineChart", String.valueOf(i), "(), getOptionsHistogram", String.valueOf(i), "());"));
-            dest.addAll(destI);
+            strBuffer.addAll(destI);
         });
-        addLine(dest, "        }");
-        addLine(dest, "    </script>");
-        addLine(dest, "<table>");
+        addLine(strBuffer, "        }");
+        addLine(strBuffer, "    </script>");
+        addLine(strBuffer, "<table>");
         IntStream.range(0, charts.size()).forEachOrdered(i -> {
             List<String> destI = TGS_ListUtils.of();
             addLine(destI, "      <tr>");
@@ -158,8 +158,8 @@ public class TS_FileHtmlChartUtils {
             addLine(destI, "      <tr>");
             addLine(destI, TGS_StringUtils.concat("          <td id=\"divHistogram", String.valueOf(i), "\" style=\"width: 900px; height: 250px;\"></td>"));
             addLine(destI, "     </tr>");
-            dest.addAll(destI);
+            strBuffer.addAll(destI);
         });
-        addLine(dest, "</table>");
+        addLine(strBuffer, "</table>");
     }
 }
