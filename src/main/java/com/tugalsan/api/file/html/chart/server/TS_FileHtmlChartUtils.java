@@ -24,8 +24,8 @@ public class TS_FileHtmlChartUtils {
                         hidden.stream().map(h -> TGS_StringUtils.concat(
                         "<input id=\"", h.value0, "\" name=\"", h.value0, "\" type=\"hidden\" value=\"", h.value1, "\">"
                 )))),
-                "From:<input type=\"date\" name=\"dateFrom\" value=\"", dateFrom.toStringHTML5_YYYY_MM_DD(), "\"> ",
-                "To:<input type=\"date\" name=\"dateTo\" value=\"", dateTo.toStringHTML5_YYYY_MM_DD(), "\"> ",
+                "From:<input type=\"date\" name=\"dateFrom\" value=\"", dateFrom.toString_YYYY_MM_DD(), "\"> ",
+                "To:<input type=\"date\" name=\"dateTo\" value=\"", dateTo.toString_YYYY_MM_DD(), "\"> ",
                 "<input type=\"submit\" value=\"Submit\"></form>"
         ));
     }
