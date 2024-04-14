@@ -5,7 +5,6 @@ import java.util.stream.*;
 import com.tugalsan.api.list.client.*;
 import com.tugalsan.api.time.client.*;
 import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.tuple.client.*;
 import com.tugalsan.api.stream.client.*;
 import com.tugalsan.api.string.client.*;
 
@@ -17,12 +16,15 @@ public class TS_FileHtmlChartUtils {
         strBuffer.add(TGS_StringUtils.concat(s, "\n"));
     }
 
-    public static void addHTML_datePicker(List<String> dest, TGS_Time dateFrom, TGS_Time dateTo, List<TGS_Tuple2<String, String>> hidden) {
+    public static record Attribute(String nameOrId, String value){
+        
+    }
+    public static void addHTML_datePicker(List<String> dest, TGS_Time dateFrom, TGS_Time dateTo, List<Attribute> hidden) {
         addLine(dest, TGS_StringUtils.concat(
                 "<form method=\"get\" action=\"\">",
                 TGS_StringUtils.concat(TGS_StreamUtils.toLst(
                         hidden.stream().map(h -> TGS_StringUtils.concat(
-                        "<input id=\"", h.value0, "\" name=\"", h.value0, "\" type=\"hidden\" value=\"", h.value1, "\">"
+                        "<input id=\"", h.nameOrId(), "\" name=\"", h.nameOrId(), "\" type=\"hidden\" value=\"", h.value(), "\">"
                 )))),
                 "From:<input type=\"date\" name=\"dateFrom\" value=\"", dateFrom.toString_YYYY_MM_DD(), "\"> ",
                 "To:<input type=\"date\" name=\"dateTo\" value=\"", dateTo.toString_YYYY_MM_DD(), "\"> ",
