@@ -11,7 +11,14 @@ import com.tugalsan.api.string.client.*;
 
 public class TS_FileHtmlChartUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_FileHtmlChartUtils.class);
+    private TS_FileHtmlChartUtils() {
+
+    }
+
+    private static TS_Log d() {
+        return d.orElse(TS_Log.of( TS_FileHtmlChartUtils.class));
+    }
+    final private static StableValue<TS_Log> d = StableValue.of();
 
     private static void addLine(List<String> strBuffer, String s) {
         strBuffer.add(TGS_StringUtils.cmn().concat(s, "\n"));
@@ -81,7 +88,7 @@ public class TS_FileHtmlChartUtils {
                 var dataI = c.data.get(di);
                 Double nem = dataI.yValues[0];//DO NOT CHANGE IT TO VAR, java bug!!! 
                 Double sic = dataI.yValues[1];//DO NOT CHANGE IT TO VAR, java bug!!!
-                d.ci("addHTML_chart", i, di, nem, sic);
+                d().ci("addHTML_chart", i, di, nem, sic);
                 nem = nem == 0f ? null : nem;
                 sic = sic == 0f ? null : sic;
                 addLine(destI, TGS_StringUtils.cmn().concat("                ['", dataI.xLabel, "', ", String.valueOf(nem), ", ", String.valueOf(sic), "]", (di != c.data.size() - 1 ? "," : "")));
