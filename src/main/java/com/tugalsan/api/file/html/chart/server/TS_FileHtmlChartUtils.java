@@ -1,13 +1,13 @@
 package com.tugalsan.api.file.html.chart.server;
 
+import module com.tugalsan.api.list;
+import module com.tugalsan.api.time;
+import module com.tugalsan.api.log;
+import module com.tugalsan.api.tuple;
+import module com.tugalsan.api.stream;
+import module com.tugalsan.api.string;
 import java.util.*;
 import java.util.stream.*;
-import com.tugalsan.api.list.client.*;
-import com.tugalsan.api.time.client.*;
-import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.tuple.client.*;
-import com.tugalsan.api.stream.client.*;
-import com.tugalsan.api.string.client.*;
 
 public class TS_FileHtmlChartUtils {
 
